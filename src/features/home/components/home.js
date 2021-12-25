@@ -2,7 +2,8 @@ import { Grid } from "@chakra-ui/layout";
 import React from "react";
 import { useQuery } from "react-query";
 
-import { getFlowers } from "../../../api/queries/flowers";
+import { getFlowers } from "../../../api/queries";
+
 import FlowerItem from "../../../components/flower-item";
 
 const Home = () => {
@@ -24,7 +25,7 @@ const Home = () => {
       justifyContent="center"
     >
       {data?.data?.flowers?.map((flower) => (
-        <FlowerItem flower={flower} />
+        <FlowerItem key={flower?.id} flower={flower} />
       ))}
     </Grid>
   );
