@@ -9,6 +9,8 @@ const useStore = create(
       user: {},
       isProfileOpen: false,
       setUser: (data) => set(() => ({ user: data })),
+      logout: () =>
+        set(() => ({ token: "", isAuth: false, isProfileOpen: false })),
       toggleProfile: () =>
         set((prev) => ({ isProfileOpen: !prev?.isProfileOpen })),
       saveToken: (data) =>
