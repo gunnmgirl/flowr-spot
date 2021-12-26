@@ -10,6 +10,7 @@ import {
   GridItem,
   Button,
   Text,
+  useDisclosure,
   Box,
   useToast,
 } from "@chakra-ui/react";
@@ -25,6 +26,8 @@ import { useMutation } from "react-query";
 import { signup } from "../../../api/mutations";
 
 import Input from "../../../components/custom-input";
+import SignupSuccess from "./signup-success";
+
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../styles/date.css";
 
@@ -49,8 +52,13 @@ const defaultValues = {
 };
 
 const Signup = (props) => {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onSignupSuccess } = props;
   const { isLoading, mutate } = useMutation(signup);
+  const {
+    isOpen: isSignupSuccessOpen,
+    onOpen: onSignupSuccessOpen,
+    onClose: onSignupSuccessClose,
+  } = useDisclosure();
   const toast = useToast({
     variant: "subtle",
     title: "",
@@ -72,12 +80,8 @@ const Signup = (props) => {
       { ...data },
       {
         onSuccess: () => {
-          toast({
-            description:
-              "Congratulations! You have successfully signed up for FlowrSpot!",
-            status: "success",
-          });
           handleClose();
+          onSignupSuccessOpen();
         },
         onError: (e) => {
           const description = e?.data?.error || COMMON_ERROR_MESSAGE;
@@ -117,111 +121,118 @@ const Signup = (props) => {
   };
 
   return (
-    <Modal
-      closeOnEsc={!isLoading}
-      closeOnOverlayClick={!isLoading}
-      isOpen={isOpen}
-      onClose={handleClose}
-    >
-      <ModalOverlay />
-      <ModalContent borderRadius="3px">
-        <ModalHeader textAlign="center">Create an Account</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody py="30px">
-          <Grid gap="10px" templateColumns="repeat(2,1fr)">
-            <Box>
-              <Input
-                label="First Name"
-                placeholder="John"
-                name="first_name"
-                register={register}
-              />
-              <Text color="red.400" mt="3px" fontSize="xs">
-                {errors?.first_name?.message}
-              </Text>
-            </Box>
-            <Box>
-              <Input
-                label="Last Name"
-                placeholder="Doe"
-                name="last_name"
-                register={register}
-              />
-              <Text color="red.400" mt="3px" fontSize="xs">
-                {errors?.last_name?.message}
-              </Text>
-            </Box>
-            <GridItem colSpan={2}>
-              <Controller
-                name="date_of_birth"
-                control={control}
-                defaultValue={undefined}
-                render={({ field }) => {
-                  return (
-                    <DatePicker
-                      showYearDropdown
-                      yearDropdownItemNumber={25}
-                      scrollableYearDropdown
-                      dateFormat="MMMM d, y"
-                      selected={
-                        field?.value ? new Date(field.value) : undefined
-                      }
-                      maxDate={new Date()}
-                      onChange={(date) => {
-                        setValue("date_of_birth", format(date, "MMMM d, y"), {
-                          shouldValidate: true,
-                        });
-                      }}
-                      customInput={<CustomDatepickerInput />}
-                    />
-                  );
-                }}
-              />
-            </GridItem>
-            <GridItem colSpan={2}>
+    <>
+      <Modal
+        closeOnEsc={!isLoading}
+        closeOnOverlayClick={!isLoading}
+        isOpen={isOpen}
+        onClose={handleClose}
+      >
+        <ModalOverlay />
+        <ModalContent borderRadius="3px">
+          <ModalHeader textAlign="center">Create an Account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody py="30px">
+            <Grid gap="10px" templateColumns="repeat(2,1fr)">
               <Box>
                 <Input
-                  label="Email Address"
-                  placeholder="johndoe@gmail.com"
-                  name="email"
+                  label="First Name"
+                  placeholder="John"
+                  name="first_name"
                   register={register}
                 />
                 <Text color="red.400" mt="3px" fontSize="xs">
-                  {errors?.email?.message}
+                  {errors?.first_name?.message}
                 </Text>
               </Box>
-            </GridItem>
-            <GridItem colSpan={2}>
               <Box>
                 <Input
-                  label="Password"
-                  placeholder="*****"
-                  type="password"
-                  name="password"
+                  label="Last Name"
+                  placeholder="Doe"
+                  name="last_name"
                   register={register}
                 />
                 <Text color="red.400" mt="3px" fontSize="xs">
-                  {errors?.password?.message}
+                  {errors?.last_name?.message}
                 </Text>
               </Box>
-            </GridItem>
-            <GridItem colSpan={2}>
-              <Button
-                isLoading={isLoading}
-                isDisabled={isLoading}
-                width="100%"
-                colorScheme="purple"
-                onClick={handleSubmit(onSubmit)}
-                size="lg"
-                mt="20px"
-              >
-                Create Account
-              </Button>
-            </GridItem>
-          </Grid>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+              <GridItem colSpan={2}>
+                <Controller
+                  name="date_of_birth"
+                  control={control}
+                  defaultValue={undefined}
+                  render={({ field }) => {
+                    return (
+                      <DatePicker
+                        showYearDropdown
+                        yearDropdownItemNumber={25}
+                        scrollableYearDropdown
+                        dateFormat="MMMM d, y"
+                        selected={
+                          field?.value ? new Date(field.value) : undefined
+                        }
+                        maxDate={new Date()}
+                        onChange={(date) => {
+                          setValue("date_of_birth", format(date, "MMMM d, y"), {
+                            shouldValidate: true,
+                          });
+                        }}
+                        customInput={<CustomDatepickerInput />}
+                      />
+                    );
+                  }}
+                />
+              </GridItem>
+              <GridItem colSpan={2}>
+                <Box>
+                  <Input
+                    label="Email Address"
+                    placeholder="johndoe@gmail.com"
+                    name="email"
+                    register={register}
+                  />
+                  <Text color="red.400" mt="3px" fontSize="xs">
+                    {errors?.email?.message}
+                  </Text>
+                </Box>
+              </GridItem>
+              <GridItem colSpan={2}>
+                <Box>
+                  <Input
+                    label="Password"
+                    placeholder="*****"
+                    type="password"
+                    name="password"
+                    register={register}
+                  />
+                  <Text color="red.400" mt="3px" fontSize="xs">
+                    {errors?.password?.message}
+                  </Text>
+                </Box>
+              </GridItem>
+              <GridItem colSpan={2}>
+                <Button
+                  isLoading={isLoading}
+                  isDisabled={isLoading}
+                  width="100%"
+                  colorScheme="purple"
+                  onClick={handleSubmit(onSubmit)}
+                  size="lg"
+                  mt="20px"
+                >
+                  Create Account
+                </Button>
+              </GridItem>
+            </Grid>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      <SignupSuccess
+        isOpen={isSignupSuccessOpen}
+        onClose={onSignupSuccessClose}
+        onSignupSuccess={onSignupSuccess}
+      />
+    </>
   );
 };
 
