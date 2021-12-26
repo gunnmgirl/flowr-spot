@@ -2,11 +2,11 @@ import React from "react";
 import { Grid, Button, Flex } from "@chakra-ui/react";
 import { useInfiniteQuery } from "react-query";
 
-import { getFlowers } from "../../../api/queries";
+import { getFavoriteFlowers } from "../../api/queries";
 
-import FlowerItem from "../../../components/flower-item";
+import FlowerItem from "../../components/flower-item";
 
-const Home = () => {
+const Favorites = () => {
   const {
     data,
     error,
@@ -15,8 +15,8 @@ const Home = () => {
     isFetchingNextPage,
     isLoading,
     isError,
-  } = useInfiniteQuery("flowers", getFlowers, {
-    getNextPageParam: (lastPage, pages) => {
+  } = useInfiniteQuery("flowers", getFavoriteFlowers, {
+    getNextPageParam: (lastPage) => {
       return lastPage.pageParams?.next_page;
     },
   });
@@ -49,9 +49,9 @@ const Home = () => {
         justifyContent="center"
       >
         {data?.pages?.map((page, i) =>
-          page?.flowers?.map((flower) => (
-            <FlowerItem key={flower?.id} flower={flower} />
-          ))
+          page?.flowers?.map((data) => {
+            return <FlowerItem key={data?.flower?.id} flower={data?.flower} />;
+          })
         )}
       </Grid>
       <Button
@@ -73,4 +73,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Favorites;
