@@ -6,7 +6,11 @@ const useStore = create(
     (set) => ({
       isAuth: false,
       token: "",
-      name: "",
+      user: {},
+      isProfileOpen: false,
+      setUser: (data) => set(() => ({ user: data })),
+      toggleProfile: () =>
+        set((prev) => ({ isProfileOpen: !prev?.isProfileOpen })),
       saveToken: (data) =>
         set(() => ({
           token: data,
