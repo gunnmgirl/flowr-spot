@@ -10,7 +10,16 @@ import App from "./App";
 import "@fontsource/montserrat/600.css";
 import "@fontsource/ubuntu/400.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: false,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>

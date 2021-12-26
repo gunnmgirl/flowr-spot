@@ -135,7 +135,12 @@ const Login = (props) => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <LoginSuccess isOpen={isLoginSuccessOpen} onClose={onLoginSuccessClose} />
+      {isLoginSuccessOpen && (
+        <LoginSuccess
+          isOpen={isLoginSuccessOpen}
+          onClose={onLoginSuccessClose}
+        />
+      )}
     </>
   );
 };

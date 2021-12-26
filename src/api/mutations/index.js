@@ -1,11 +1,11 @@
 import axios from "../../http";
 
-const signup = (data) => {
-  return axios.post(`/users/register`, data);
+const signup = async (data) => {
+  return await axios.post(`/users/register`, data);
 };
 
-const login = (data) => {
-  return axios.post(`/users/login`, data);
+const login = async (data) => {
+  return await axios.post(`/users/login`, data);
 };
 
 export { signup, login };

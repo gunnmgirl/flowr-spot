@@ -9,9 +9,21 @@ import {
   Text,
   Grid,
 } from "@chakra-ui/react";
+import { useQuery } from "react-query";
+
+import { getMe } from "../../../api/queries";
+
+import useStore from "../../../store";
 
 const LoginSuccess = (props) => {
   const { isOpen, onClose } = props;
+  const setUser = useStore((state) => state.setUser);
+
+  const saveUser = (data) => {
+    setUser(data?.data?.user);
+  };
+
+  useQuery("me", getMe, { onSuccess: saveUser });
 
   const handleProfile = () => {};
 

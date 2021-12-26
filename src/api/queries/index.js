@@ -1,11 +1,15 @@
 import axios from "../../http";
 
-const getFlowers = () => {
-  return axios.get(`/flowers`);
+const getFlowers = async () => {
+  return await axios.get(`/flowers`);
 };
 
-const getMe = () => {
-  return axios.get(`/users/me`);
+const getMe = async () => {
+  return await axios.get(`/users/me`);
 };
 
-export { getFlowers, getMe };
+const getUser = async (id) => {
+  return await axios.get(`/users/${id}`);
+};
+
+export { getFlowers, getMe, getUser };
