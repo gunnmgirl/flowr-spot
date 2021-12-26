@@ -18,18 +18,18 @@ import useStore from "../../../store";
 const LoginSuccess = (props) => {
   const { isOpen, onClose } = props;
   const setUser = useStore((state) => state.setUser);
+  const toggleProfile = useStore((state) => state.toggleProfile);
 
   const saveUser = (data) => {
     setUser(data?.data?.user);
   };
 
-  useQuery("me", getMe, { onSuccess: saveUser });
-
-  const handleProfile = () => {};
-
-  const handleOnClick = () => {
+  const handleProfile = () => {
+    toggleProfile();
     onClose();
   };
+
+  useQuery("me", getMe, { onSuccess: saveUser });
 
   return (
     <Modal
@@ -51,7 +51,7 @@ const LoginSuccess = (props) => {
               variant="outline"
               colorScheme="purple"
               size="lg"
-              onClick={handleOnClick}
+              onClick={onClose}
             >
               OK
             </Button>

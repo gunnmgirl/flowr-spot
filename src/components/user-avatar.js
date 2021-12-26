@@ -9,15 +9,11 @@ const UserAvatar = () => {
   const toggleProfile = useStore((state) => state.toggleProfile);
   const isProfileOpen = useStore((state) => state.isProfileOpen);
 
-  const onClick = () => {
-    toggleProfile();
-  };
-
   return (
     <>
       <Avatar
         cursor="pointer"
-        onClick={onClick}
+        onClick={toggleProfile}
         boxSize="40px"
         name="user"
         src={url}

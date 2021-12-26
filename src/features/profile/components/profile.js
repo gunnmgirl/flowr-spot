@@ -8,6 +8,7 @@ import {
   Text,
   VStack,
   Box,
+  Button,
 } from "@chakra-ui/react";
 
 import useStore from "../../../store";
@@ -18,6 +19,7 @@ const Profile = () => {
 
   const isProfileOpen = useStore((state) => state.isProfileOpen);
   const toggleProfile = useStore((state) => state.toggleProfile);
+  const logout = useStore((state) => state.logout);
 
   const handleClose = () => {
     toggleProfile();
@@ -43,6 +45,14 @@ const Profile = () => {
               </Text>
               <Text fontSize="lg">{last_name}</Text>
             </Box>
+            <Button
+              onClick={logout}
+              px="50px"
+              alignSelf="center"
+              colorScheme="purple"
+            >
+              LOGOUT
+            </Button>
           </VStack>
         </ModalBody>
       </ModalContent>
