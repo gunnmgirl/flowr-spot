@@ -1,11 +1,14 @@
 import React from "react";
-import { Box, Text, VStack } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/button";
+import { Box, Text, VStack, Button } from "@chakra-ui/react";
+
+import useStore from "../store";
 import Favorite from "./favorite";
 
 const FlowerItem = (props) => {
   const { flower } = props;
   const { favorite, latin_name, name, profile_picture, sightings } = flower;
+  const isAuth = useStore((state) => state.isAuth);
+
   return (
     <Box
       borderRadius="3px"
@@ -15,9 +18,11 @@ const FlowerItem = (props) => {
       background={`url(${profile_picture})`}
       backgroundSize="cover"
     >
-      <Box zIndex="1" top="20px" right="20px" position="absolute">
-        <Favorite favorite={favorite} />
-      </Box>
+      {isAuth && (
+        <Box zIndex="1" top="20px" right="20px" position="absolute">
+          <Favorite favorite={favorite} />
+        </Box>
+      )}
       <Box
         top="0"
         position="absolute"

@@ -5,7 +5,7 @@ const CustomInput = (props) => {
   const { register, name, ...rest } = props;
 
   return (
-    <Box position="relative">
+    <Box width="100%" position="relative">
       <Text
         fontSize="xs"
         pt="8px"

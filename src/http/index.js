@@ -6,9 +6,13 @@ const instance = axios.create({
   baseURL: API_URL,
 });
 
+const { token } = localStorage.getItem("state")
+  ? JSON.parse(localStorage.getItem("state"))?.state
+  : "";
+
 instance.interceptors.request.use(
   (config) => {
-    config.headers.authorization = localStorage.getItem("token");
+    config.headers.authorization = `${token}`;
     return config;
   },
   (error) => {

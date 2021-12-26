@@ -4,4 +4,8 @@ const getFlowers = () => {
   return axios.get(`/flowers`);
 };
 
-export { getFlowers };
+const getMe = () => {
+  return axios.get(`/users/me`);
+};
+
+export { getFlowers, getMe };
