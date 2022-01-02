@@ -50,7 +50,11 @@ const Home = () => {
       >
         {data?.pages?.map((page, i) =>
           page?.flowers?.map((flower) => (
-            <FlowerItem key={flower?.id} flower={flower} />
+            <FlowerItem
+              key={flower?.id}
+              favoriteId={flower?.sightingId}
+              flower={flower}
+            />
           ))
         )}
       </Grid>
