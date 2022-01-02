@@ -50,7 +50,14 @@ const Favorites = () => {
       >
         {data?.pages?.map((page, i) =>
           page?.flowers?.map((data) => {
-            return <FlowerItem key={data?.flower?.id} flower={data?.flower} />;
+            return (
+              <FlowerItem
+                key={data?.flower?.id}
+                favoriteId={data?.id}
+                flower={data?.flower}
+                shouldRemoveFavorite={true}
+              />
+            );
           })
         )}
       </Grid>

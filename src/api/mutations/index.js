@@ -9,7 +9,9 @@ const login = async (data) => {
 };
 
 const favoriteFlower = async (id) => {
-  return await axios.post(`/flowers/${id}/favorites`);
+  const response = await axios.post(`/flowers/${id}/favorites`);
+  const sightingId = response?.data?.fav_flower?.id;
+  return sightingId;
 };
 
 const unfavoriteFlower = async (id, userId) => {

@@ -5,7 +5,12 @@ import useStore from "../store";
 import Favorite from "./favorite";
 
 const FlowerItem = (props) => {
-  const { flower = {}, isLoading } = props;
+  const {
+    flower = {},
+    isLoading,
+    favoriteId = "",
+    shouldRemoveFavorite = false,
+  } = props;
   const {
     favorite,
     latin_name = "",
@@ -28,7 +33,12 @@ const FlowerItem = (props) => {
       >
         {isAuth && (
           <Box zIndex="1" top="20px" right="20px" position="absolute">
-            <Favorite id={id} favorite={favorite} />
+            <Favorite
+              shouldRemoveFavorite={shouldRemoveFavorite}
+              favoriteId={favoriteId}
+              id={id}
+              favorite={favorite}
+            />
           </Box>
         )}
         <Box
