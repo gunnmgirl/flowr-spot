@@ -2,16 +2,20 @@ import axios from "axios";
 
 import { API_URL } from "../constants";
 
+import { refreshToken } from "../api/queries";
+
 import useStore from "../store";
+
+let isFetchingToken = false;
 
 const instance = axios.create({
   baseURL: API_URL,
 });
 
 instance.interceptors.request.use(
-  (config) => {
+  async (config) => {
     const token = useStore.getState().token;
-    config.headers.authorization = `${token}`;
+    config.headers.authorization = token;
     return config;
   },
   (error) => {
@@ -22,9 +26,31 @@ instance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
-    if (error.response.status === 401) {
-      // go to login
+  async (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+    const originalRequest = config;
+    if (status === 401) {
+      if (!isFetchingToken) {
+        try {
+          isFetchingToken = true;
+          const saveToken = useStore.getState().saveToken;
+          const token = await refreshToken();
+          saveToken(token);
+          const retryOriginalRequest = new Promise((resolve) => {
+            originalRequest.headers.Authorization = token;
+            resolve(axios(originalRequest));
+          });
+          isFetchingToken = false;
+          return retryOriginalRequest;
+        } catch {
+          return Promise.reject(error.response);
+        }
+      } else {
+        return Promise.reject(error.response);
+      }
     }
     return Promise.reject(error.response);
   }
