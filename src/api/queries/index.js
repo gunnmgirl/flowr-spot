@@ -26,4 +26,9 @@ const getUser = async (id) => {
   return await axios.get(`/users/${id}`);
 };
 
-export { getFlowers, getMe, getUser, getFavoriteFlowers };
+const refreshToken = async () => {
+  const response = await axios.get(`/users/me/refresh`);
+  return response?.data?.auth_token || "";
+};
+
+export { getFlowers, getMe, getUser, getFavoriteFlowers, refreshToken };
