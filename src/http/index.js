@@ -13,7 +13,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  async (config) => {
+  (config) => {
     const token = useStore.getState().token;
     config.headers.authorization = token;
     return config;

@@ -1,12 +1,17 @@
 import React from "react";
 import { Grid, Button, Flex } from "@chakra-ui/react";
 import { useInfiniteQuery } from "react-query";
+import queryString from "query-string";
+import { useLocation } from "react-router-dom";
 
 import { getFlowers } from "../../../api/queries";
 
 import FlowerItem from "../../../components/flower-item";
+import Search from "./search";
 
 const Home = () => {
+  const location = useLocation();
+  const { query } = queryString.parse(location.search);
   const {
     data,
     error,
@@ -15,11 +20,15 @@ const Home = () => {
     isFetchingNextPage,
     isLoading,
     isError,
-  } = useInfiniteQuery("flowers", getFlowers, {
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.pageParams?.next_page;
-    },
-  });
+  } = useInfiniteQuery(
+    ["flowers", query],
+    (data) => getFlowers({ ...data, query }),
+    {
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage.pageParams?.next_page;
+      },
+    }
+  );
 
   if (isLoading) {
     return (
@@ -42,7 +51,9 @@ const Home = () => {
 
   return (
     <Flex py="30px" direction="column">
+      <Search defaultValue={query} />
       <Grid
+        mt="50px"
         gap="20px"
         templateColumns="repeat(auto-fill, 280px)"
         templateRows="repeat(auto-fill, 350px)"
