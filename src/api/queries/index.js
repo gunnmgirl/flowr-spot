@@ -1,8 +1,10 @@
 import axios from "../../http";
 
 const getFlowers = async (params) => {
-  const { pageParam = 1 } = params;
-  const response = await axios.get(`/flowers?page=${pageParam}`);
+  const { pageParam = 1, query = "" } = params;
+  const response = query
+    ? await axios.get(`/flowers/search?page=${pageParam}&query=${query}`)
+    : await axios.get(`/flowers?page=${pageParam}`);
   return {
     flowers: response?.data?.flowers || [],
     pageParams: response?.data?.meta?.pagination,
