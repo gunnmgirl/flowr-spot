@@ -1,10 +1,26 @@
 import React from "react";
-import { Box, Text, VStack, Button, Skeleton } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  VStack,
+  Button,
+  Skeleton,
+  useToast,
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import useStore from "../store";
 import Favorite from "./favorite";
 
 const FlowerItem = (props) => {
+  const navigate = useNavigate();
+  const toast = useToast({
+    variant: "subtle",
+    title: "",
+    duration: 5000,
+    isClosable: true,
+    position: "top",
+  });
   const {
     flower = {},
     isLoading,
@@ -20,6 +36,16 @@ const FlowerItem = (props) => {
     sightings = "",
   } = flower;
   const isAuth = useStore((state) => state.isAuth);
+
+  const gotoFlowerDetail = () => {
+    if (sightings) {
+      navigate(`/${id}`);
+    } else
+      toast({
+        description: "No sightings to show",
+        status: "warning",
+      });
+  };
 
   return (
     <Skeleton isLoaded={!isLoading}>
@@ -60,6 +86,7 @@ const FlowerItem = (props) => {
             {latin_name}
           </Text>
           <Button
+            onClick={gotoFlowerDetail}
             colorScheme={favorite ? "pink" : "black"}
           >{`${sightings} sightings`}</Button>
         </VStack>

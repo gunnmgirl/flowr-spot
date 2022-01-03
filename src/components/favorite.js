@@ -1,6 +1,8 @@
 import React from "react";
 import { Circle, useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
+import queryString from "query-string";
+import { useLocation } from "react-router-dom";
 
 import { favoriteFlower, unfavoriteFlower } from "../api/mutations";
 
@@ -8,6 +10,8 @@ import { ReactComponent as Star } from "../icons/star.svg";
 
 const Favorite = (props) => {
   const { favorite, id, favoriteId, shouldRemoveFavorite } = props;
+  const location = useLocation();
+  const { query } = queryString.parse(location.search);
 
   const queryClient = useQueryClient();
   const toast = useToast({
@@ -20,7 +24,7 @@ const Favorite = (props) => {
 
   const { mutate } = useMutation(() => favoriteFlower(id), {
     onSuccess: (data) => {
-      const previousFlowers = queryClient.getQueryData("flowers");
+      const previousFlowers = queryClient.getQueryData(["flowers", query]);
       const newState = previousFlowers?.pages?.map((page) => {
         return {
           ...page,
@@ -32,7 +36,7 @@ const Favorite = (props) => {
           }),
         };
       });
-      queryClient.setQueryData("flowers", (old) => {
+      queryClient.setQueryData(["flowers", query], (old) => {
         return { ...old, pages: newState };
       });
       return { previousFlowers };
@@ -42,7 +46,7 @@ const Favorite = (props) => {
         description: err?.data?.error?.[0],
         status: "error",
       });
-      queryClient.setQueryData("flowers", context.previousFlowers);
+      queryClient.setQueryData(["flowers", query], context.previousFlowers);
     },
   });
 
@@ -50,8 +54,8 @@ const Favorite = (props) => {
     () => unfavoriteFlower(id, favoriteId),
     {
       onMutate: async () => {
-        await queryClient.cancelQueries("flowers");
-        const previousFlowers = queryClient.getQueryData("flowers");
+        await queryClient.cancelQueries(["flowers", query]);
+        const previousFlowers = queryClient.getQueryData(["flowers", query]);
         let newState = [];
         if (shouldRemoveFavorite) {
           newState = previousFlowers?.pages?.map((page) => {
@@ -75,7 +79,7 @@ const Favorite = (props) => {
             };
           });
         }
-        queryClient.setQueryData("flowers", (old) => {
+        queryClient.setQueryData(["flowers", query], (old) => {
           return { ...old, pages: newState };
         });
         return { previousFlowers };
@@ -85,7 +89,7 @@ const Favorite = (props) => {
           description: err?.data?.error,
           status: "error",
         });
-        queryClient.setQueryData("flowers", context.previousFlowers);
+        queryClient.setQueryData(["flowers", query], context.previousFlowers);
       },
     }
   );

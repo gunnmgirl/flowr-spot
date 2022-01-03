@@ -6,6 +6,7 @@ import Navigation from "./components/navigation";
 import Landing from "./features/landing/landing";
 import useStore from "./store";
 import Favorites from "./features/favorites/favorites";
+import FlowerDetail from "./features/sightings/components/flower-detail";
 
 const App = () => {
   const isAuth = useStore((state) => state.isAuth);
@@ -16,6 +17,7 @@ const App = () => {
       {isAuth ? (
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/:id" element={<FlowerDetail />} />
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
       ) : (
