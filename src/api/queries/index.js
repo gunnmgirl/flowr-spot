@@ -11,6 +11,12 @@ const getFlowers = async (params) => {
   };
 };
 
+const getFlower = async (params) => {
+  const { id } = params;
+  const response = await axios.get(`/flowers/${id}/sightings`);
+  return response?.data || {};
+};
+
 const getFavoriteFlowers = async (params) => {
   const { pageParam = 1 } = params;
   const response = await axios.get(`/flowers/favorites?page=${pageParam}`);
@@ -33,4 +39,11 @@ const refreshToken = async () => {
   return response?.data?.auth_token || "";
 };
 
-export { getFlowers, getMe, getUser, getFavoriteFlowers, refreshToken };
+export {
+  getFlowers,
+  getMe,
+  getUser,
+  getFavoriteFlowers,
+  refreshToken,
+  getFlower,
+};
