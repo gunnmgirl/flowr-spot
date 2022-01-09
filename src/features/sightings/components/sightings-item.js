@@ -62,7 +62,7 @@ const SightingsItem = (props) => {
               <Pin />
             </Center>
           }
-        >{`${latitude}, ${longitude}`}</Button>
+        >{`${latitude.toFixed(2)}, ${longitude.toFixed(2)}`}</Button>
       </Box>
       <Box padding="20px">
         <HStack spacing="15px">

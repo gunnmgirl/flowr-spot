@@ -105,25 +105,6 @@ const Comments = (props) => {
             })
           )}
         </VStack>
-        <Flex width="100%" direction="column">
-          <Textarea
-            height="150px"
-            resize="none"
-            mb="20px"
-            {...register("content", { required: true })}
-            placeholder="Type your comment here"
-          ></Textarea>
-          <Button
-            isLoading={mutation.isLoading}
-            isDisabled={mutation.isLoading}
-            alignSelf="flex-end"
-            colorScheme="purple"
-            opacity="0.8"
-            onClick={handleSubmit(onSubmit)}
-          >
-            Publish Comment
-          </Button>
-        </Flex>
         <Button
           width="fit-content"
           colorScheme="purple"
@@ -138,6 +119,25 @@ const Comments = (props) => {
             ? "Load More"
             : "Nothing more to load"}
         </Button>
+        <Flex width="100%" direction="column">
+          <Textarea
+            height="150px"
+            resize="none"
+            my="20px"
+            {...register("content", { required: true })}
+            placeholder="Type your comment here"
+          ></Textarea>
+          <Button
+            isLoading={mutation.isLoading}
+            isDisabled={mutation.isLoading}
+            alignSelf="flex-end"
+            colorScheme="purple"
+            opacity="0.8"
+            onClick={handleSubmit(onSubmit)}
+          >
+            Publish Comment
+          </Button>
+        </Flex>
       </VStack>
     </Flex>
   );
