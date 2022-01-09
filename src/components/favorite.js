@@ -9,7 +9,7 @@ import { favoriteFlower, unfavoriteFlower } from "../api/mutations";
 import { ReactComponent as Star } from "../icons/star.svg";
 
 const Favorite = (props) => {
-  const { favorite, id, favoriteId, shouldRemoveFavorite } = props;
+  const { favorite, id, favoriteId, shouldRemoveFavorite, hasQuery } = props;
   const location = useLocation();
   const { query } = queryString.parse(location.search);
 
@@ -54,8 +54,12 @@ const Favorite = (props) => {
     () => unfavoriteFlower(id, favoriteId),
     {
       onMutate: async () => {
-        await queryClient.cancelQueries(["flowers", query]);
-        const previousFlowers = queryClient.getQueryData(["flowers", query]);
+        await queryClient.cancelQueries(
+          hasQuery ? ["flowers", query] : "flowers"
+        );
+        const previousFlowers = queryClient.getQueryData(
+          hasQuery ? ["flowers", query] : "flowers"
+        );
         let newState = [];
         if (shouldRemoveFavorite) {
           newState = previousFlowers?.pages?.map((page) => {
@@ -79,9 +83,12 @@ const Favorite = (props) => {
             };
           });
         }
-        queryClient.setQueryData(["flowers", query], (old) => {
-          return { ...old, pages: newState };
-        });
+        queryClient.setQueryData(
+          hasQuery ? ["flowers", query] : "flowers",
+          (old) => {
+            return { ...old, pages: newState };
+          }
+        );
         return { previousFlowers };
       },
       onError: (err, id, context) => {
@@ -89,7 +96,10 @@ const Favorite = (props) => {
           description: err?.data?.error,
           status: "error",
         });
-        queryClient.setQueryData(["flowers", query], context.previousFlowers);
+        queryClient.setQueryData(
+          hasQuery ? ["flowers", query] : "flowers",
+          context.previousFlowers
+        );
       },
     }
   );

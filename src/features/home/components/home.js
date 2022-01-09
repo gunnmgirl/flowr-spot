@@ -65,6 +65,7 @@ const Home = () => {
               key={flower?.id}
               favoriteId={flower?.sightingId}
               flower={flower}
+              hasQuery
             />
           ))
         )}

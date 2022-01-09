@@ -37,7 +37,8 @@ instance.interceptors.response.use(
         try {
           isFetchingToken = true;
           const saveToken = useStore.getState().saveToken;
-          const token = await refreshToken();
+          const currentToken = useStore.getState().token;
+          const token = await refreshToken(currentToken);
           saveToken(token);
           const retryOriginalRequest = new Promise((resolve) => {
             originalRequest.headers.Authorization = token;
@@ -46,6 +47,7 @@ instance.interceptors.response.use(
           isFetchingToken = false;
           return retryOriginalRequest;
         } catch {
+          isFetchingToken = false;
           return Promise.reject(error.response);
         }
       } else {

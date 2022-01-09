@@ -18,4 +18,9 @@ const unfavoriteFlower = async (id, userId) => {
   return await axios.delete(`/flowers/${id}/favorites/${userId}`);
 };
 
-export { signup, login, favoriteFlower, unfavoriteFlower };
+const createComment = async (id, data) => {
+  const response = await axios.post(`/sightings/${id}/comments`, data);
+  return response?.data?.comment || {};
+};
+
+export { signup, login, favoriteFlower, unfavoriteFlower, createComment };
