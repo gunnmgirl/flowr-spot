@@ -28,7 +28,7 @@ const Navigation = () => {
       <Logo />
       <HStack fontSize="sm" spacing="54px">
         <NavLink to="/">Flowers</NavLink>
-        <NavLink to="/latest">Latest Sightings</NavLink>
+        <NavLink to="/sightings">Latest Sightings</NavLink>
         <NavLink to="/favorites">Favorites</NavLink>
         {isAuth ? (
           <UserAvatar />

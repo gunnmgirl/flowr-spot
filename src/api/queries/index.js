@@ -11,6 +11,15 @@ const getFlowers = async (params) => {
   };
 };
 
+const getSightings = async (params) => {
+  const { pageParam = 1 } = params;
+  const response = await axios.get(`/sightings?page=${pageParam}`);
+  return {
+    sightings: response?.data?.sightings || [],
+    pageParams: response?.data?.meta?.pagination,
+  };
+};
+
 const getFlower = async (params) => {
   const { id } = params;
   const response = await axios.get(`/flowers/${id}/sightings`);
@@ -66,4 +75,5 @@ export {
   refreshToken,
   getFlower,
   getComments,
+  getSightings,
 };
