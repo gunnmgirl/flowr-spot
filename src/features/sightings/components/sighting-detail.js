@@ -1,9 +1,20 @@
 import React from "react";
-import { Box, Avatar, Text, HStack, Center, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Avatar,
+  Text,
+  HStack,
+  Center,
+  Flex,
+  Collapse,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 
 import url from "../../../icons/profile-holder.svg";
 import Comments from "./comments";
+import SightingMap from "./sighting-map";
 import { ReactComponent as CommentsIcon } from "../../../icons/message-circle.svg";
 import { ReactComponent as Likes } from "../../../icons/heart.svg";
 
@@ -21,10 +32,19 @@ const SightingDetail = (props) => {
     id,
   } = location.state;
 
+  const { isOpen, onToggle } = useDisclosure();
+
   return (
     <>
+      <Collapse animateOpacity in={isOpen}>
+        <SightingMap
+          flower_name={flowerName}
+          longitude={longitude}
+          latitude={latitude}
+        />
+      </Collapse>
       <Flex
-        py="20px"
+        padding="20px"
         align="center"
         direction={["column", "column", "row"]}
         boxShadow="0px 15px 30px rgba(0, 0, 0, 0.05)"
@@ -36,15 +56,21 @@ const SightingDetail = (props) => {
           background={`url(${picture})`}
           backgroundSize="cover"
           boxSize="290px"
+          minWidth="290px"
         ></Box>
-        <Box pb="20px">
-          <HStack spacing="15px">
-            <Avatar src={url} />
-            <Box>
-              <Text>{flowerName}</Text>
-              <Text fontSize="xs" opacity="0.7">{`by ${userName}`}</Text>
-            </Box>
-          </HStack>
+        <Box width="100%" pb="20px">
+          <Flex justifyContent="space-between">
+            <HStack spacing="15px">
+              <Avatar src={url} />
+              <Box>
+                <Text>{flowerName}</Text>
+                <Text fontSize="xs" opacity="0.7">{`by ${userName}`}</Text>
+              </Box>
+            </HStack>
+            <Button onClick={onToggle}>
+              {isOpen ? "Hide map" : "View map"}
+            </Button>
+          </Flex>
           <Text py="20px" borderBottom="1px solid #E8E9ED" opacity="0.7">
             {description}
           </Text>
@@ -63,12 +89,7 @@ const SightingDetail = (props) => {
           </HStack>
         </Box>
       </Flex>
-      <Comments
-        longitude={longitude}
-        latitude={latitude}
-        flower_name={flowerName}
-        id={id}
-      />
+      <Comments flower_name={flowerName} id={id} />
     </>
   );
 };

@@ -8,6 +8,7 @@ import useStore from "./store";
 import Favorites from "./features/favorites/favorites";
 import FlowerDetail from "./features/sightings/components/flower-detail";
 import SightingDetail from "./features/sightings/components/sighting-detail";
+import SightingMap from "./features/sightings/components/sighting-map";
 
 const App = () => {
   const isAuth = useStore((state) => state.isAuth);
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/:id" element={<FlowerDetail />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/sightings/:id" element={<SightingDetail />} />
+          <Route path="/sightings/:id/map" element={<SightingMap />} />
         </Routes>
       ) : (
         <Landing />
