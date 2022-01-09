@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar, Box, Button, Center, HStack, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import url from "../../../icons/profile-holder.svg";
 import { ReactComponent as Comments } from "../../../icons/message-circle.svg";
@@ -7,6 +8,7 @@ import { ReactComponent as Likes } from "../../../icons/heart.svg";
 import { ReactComponent as Pin } from "../../../icons/map-pin.svg";
 
 const SightingsItem = (props) => {
+  const navigate = useNavigate();
   const {
     commentsCount,
     description,
@@ -16,10 +18,31 @@ const SightingsItem = (props) => {
     flowerName,
     longitude,
     latitude,
-    // id,
+    id,
   } = props;
+
+  const gotoSightingDetail = () => {
+    navigate(`/sightings/${id}`, {
+      state: {
+        commentsCount,
+        description,
+        likesCount,
+        picture,
+        userName,
+        flowerName,
+        longitude,
+        latitude,
+        id,
+      },
+    });
+  };
+
   return (
-    <Box boxShadow="0px 15px 30px rgba(0, 0, 0, 0.05)">
+    <Box
+      cursor="pointer"
+      onClick={gotoSightingDetail}
+      boxShadow="0px 15px 30px rgba(0, 0, 0, 0.05)"
+    >
       <Box
         borderRadius="3px 3px 0px 0px"
         background={`url(${picture})`}

@@ -34,9 +34,28 @@ const getUser = async (id) => {
   return await axios.get(`/users/${id}`);
 };
 
-const refreshToken = async () => {
-  const response = await axios.get(`/users/me/refresh`);
+const refreshToken = async (token) => {
+  const response = await axios.get(
+    `/users/me/refresh`,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
   return response?.data?.auth_token || "";
+};
+
+const getComments = async (params) => {
+  const { pageParam = 1, sighting_id } = params;
+  const response = await axios.get(
+    `/sightings/${sighting_id}/comments?page=${pageParam}`
+  );
+  return {
+    comments: response?.data?.comments || [],
+    pageParams: response?.data?.meta?.pagination,
+  };
 };
 
 export {
@@ -46,4 +65,5 @@ export {
   getFavoriteFlowers,
   refreshToken,
   getFlower,
+  getComments,
 };

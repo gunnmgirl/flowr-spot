@@ -26,6 +26,7 @@ const FlowerItem = (props) => {
     isLoading,
     favoriteId = "",
     shouldRemoveFavorite = false,
+    hasQuery = false,
   } = props;
   const {
     favorite,
@@ -64,6 +65,7 @@ const FlowerItem = (props) => {
               favoriteId={favoriteId}
               id={id}
               favorite={favorite}
+              hasQuery={hasQuery}
             />
           </Box>
         )}
