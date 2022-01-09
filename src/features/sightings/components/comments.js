@@ -16,11 +16,7 @@ import { useForm } from "react-hook-form";
 import { createComment } from "../../../api/mutations";
 
 const Comments = (props) => {
-  const {
-    id: sighting_id,
-    flower_name,
-    //  longitude, latitude
-  } = props;
+  const { id: sighting_id, flower_name } = props;
   const queryClient = useQueryClient();
   const toast = useToast({
     variant: "subtle",
