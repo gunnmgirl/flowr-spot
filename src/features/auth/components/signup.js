@@ -99,6 +99,7 @@ const Signup = (props) => {
     return (
       <Box>
         <Input
+          data-cy="signup-datepicker"
           cursor="pointer"
           readOnly
           placeholder="Click to select"
@@ -140,6 +141,7 @@ const Signup = (props) => {
                   placeholder="John"
                   name="first_name"
                   register={register}
+                  data-cy="signup-first-name-input"
                 />
                 <Text color="red.400" mt="3px" fontSize="xs">
                   {errors?.first_name?.message}
@@ -151,6 +153,7 @@ const Signup = (props) => {
                   placeholder="Doe"
                   name="last_name"
                   register={register}
+                  data-cy="signup-last-name-input"
                 />
                 <Text color="red.400" mt="3px" fontSize="xs">
                   {errors?.last_name?.message}
@@ -190,6 +193,7 @@ const Signup = (props) => {
                     placeholder="johndoe@gmail.com"
                     name="email"
                     register={register}
+                    data-cy="signup-email-input"
                   />
                   <Text color="red.400" mt="3px" fontSize="xs">
                     {errors?.email?.message}
@@ -204,6 +208,7 @@ const Signup = (props) => {
                     type="password"
                     name="password"
                     register={register}
+                    data-cy="signup-password-input"
                   />
                   <Text color="red.400" mt="3px" fontSize="xs">
                     {errors?.password?.message}
@@ -219,6 +224,7 @@ const Signup = (props) => {
                   onClick={handleSubmit(onSubmit)}
                   size="lg"
                   mt="20px"
+                  data-cy="signup-submit-button"
                 >
                   Create Account
                 </Button>

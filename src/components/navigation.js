@@ -36,6 +36,7 @@ const Navigation = () => {
         <NavLink
           to="/sightings"
           style={({ isActive }) => (isActive ? { color: "purple" } : undefined)}
+          data-cy="sightings-button"
         >
           Latest Sightings
         </NavLink>
@@ -54,10 +55,16 @@ const Navigation = () => {
               cursor="pointer"
               fontWeight="bold"
               color="purple.500"
+              data-cy="login-button"
             >
               Login
             </Text>
-            <Button onClick={onSignupOpen} size="sm" colorScheme="purple">
+            <Button
+              data-cy="signup-button"
+              onClick={onSignupOpen}
+              size="sm"
+              colorScheme="purple"
+            >
               New Account
             </Button>
           </>
