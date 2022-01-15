@@ -72,7 +72,14 @@ const SightingsItem = (props) => {
             <Text fontSize="xs" opacity="0.7">{`by ${userName}`}</Text>
           </Box>
         </HStack>
-        <Text py="20px" borderBottom="1px solid #E8E9ED" opacity="0.7">
+        <Text
+          overflow="hidden"
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
+          py="20px"
+          borderBottom="1px solid #E8E9ED"
+          opacity="0.7"
+        >
           {description}
         </Text>
         <HStack spacing="12px" mt="20px">

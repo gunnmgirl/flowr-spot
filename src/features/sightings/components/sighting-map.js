@@ -4,15 +4,27 @@ import ReactMapGL, { MapContext } from "react-map-gl";
 
 import { ReactComponent as MapPin } from "../../../icons/map-pin.svg";
 
+const isValidLatitude = (latitude) => {
+  if (latitude > -90 && latitude < 90) {
+    return latitude;
+  }
+  return 43.8563;
+};
+
+const isValidLongitude = (longitude) => {
+  if (longitude > -180 && longitude < 180) {
+    return longitude;
+  }
+  return 18.4131;
+};
+
 const SightingMap = (props) => {
-  const {
-    latitude = 43.8563,
-    longitude = 18.4131,
-    flower_name = "Flower",
-  } = props;
+  const { latitude, longitude, flower_name = "" } = props;
+  const currentLatitude = isValidLatitude(latitude);
+  const currentLongitude = isValidLongitude(longitude);
   const [viewport, setViewport] = React.useState({
-    latitude: latitude,
-    longitude: longitude,
+    longitude: currentLongitude,
+    latitude: currentLatitude,
     zoom: 15,
   });
 
@@ -29,7 +41,7 @@ const SightingMap = (props) => {
         fill="red.500"
         stroke="black"
       >
-        {flower_name}
+        {flower_name || ""}
         <MapPin height="20px" width="20px" />
       </Center>
     );
@@ -43,7 +55,7 @@ const SightingMap = (props) => {
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
     >
-      <CustomMarker longitude={longitude} latitude={latitude} />
+      <CustomMarker longitude={currentLongitude} latitude={currentLatitude} />
     </ReactMapGL>
   );
 };

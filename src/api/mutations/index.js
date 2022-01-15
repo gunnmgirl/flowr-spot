@@ -14,6 +14,10 @@ const favoriteFlower = async (id) => {
   return sightingId;
 };
 
+const createSighting = async (data) => {
+  await axios.post(`/sightings`, data);
+};
+
 const unfavoriteFlower = async (id, userId) => {
   return await axios.delete(`/flowers/${id}/favorites/${userId}`);
 };
@@ -23,4 +27,11 @@ const createComment = async (id, data) => {
   return response?.data?.comment || {};
 };
 
-export { signup, login, favoriteFlower, unfavoriteFlower, createComment };
+export {
+  signup,
+  login,
+  favoriteFlower,
+  unfavoriteFlower,
+  createComment,
+  createSighting,
+};

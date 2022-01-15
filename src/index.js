@@ -9,6 +9,7 @@ import App from "./App";
 
 import "@fontsource/montserrat/600.css";
 import "@fontsource/ubuntu/400.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {

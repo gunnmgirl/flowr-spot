@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Text,
-  VStack,
-  Button,
-  Skeleton,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Text, VStack, Button, Skeleton } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import useStore from "../store";
@@ -14,13 +7,6 @@ import Favorite from "./favorite";
 
 const FlowerItem = (props) => {
   const navigate = useNavigate();
-  const toast = useToast({
-    variant: "subtle",
-    title: "",
-    duration: 5000,
-    isClosable: true,
-    position: "top",
-  });
   const {
     flower = {},
     isLoading,
@@ -41,11 +27,7 @@ const FlowerItem = (props) => {
   const gotoFlowerDetail = () => {
     if (sightings) {
       navigate(`/${id}`);
-    } else
-      toast({
-        description: "No sightings to show",
-        status: "warning",
-      });
+    } else navigate(`/sightings/${id}/new`);
   };
 
   return (

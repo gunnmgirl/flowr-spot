@@ -1,8 +1,57 @@
 import React from "react";
-import { Input, Box, Text } from "@chakra-ui/react";
+import {
+  Input,
+  Box,
+  Text,
+  NumberInput,
+  NumberInputField,
+  Textarea,
+} from "@chakra-ui/react";
 
 const CustomInput = (props) => {
-  const { register, name, ...rest } = props;
+  const { register, name, fieldType, ...rest } = props;
+
+  const getField = () => {
+    switch (fieldType) {
+      case "number":
+        return (
+          <NumberInput>
+            <NumberInputField
+              {...register?.(name, { valueAsNumber: true })}
+              backgroundColor="gray.50"
+              fontSize="sm"
+              borderRadius="3px"
+              pb="11px"
+              pt="34px"
+              {...rest}
+            />
+          </NumberInput>
+        );
+      case "textarea":
+        return (
+          <Textarea
+            {...register?.(name)}
+            backgroundColor="gray.50"
+            fontSize="sm"
+            borderRadius="3px"
+            resize="none"
+            {...rest}
+          />
+        );
+      default:
+        return (
+          <Input
+            backgroundColor="gray.50"
+            fontSize="sm"
+            borderRadius="3px"
+            pb="11px"
+            pt="34px"
+            {...register?.(name)}
+            {...rest}
+          />
+        );
+    }
+  };
 
   return (
     <Box width="100%" position="relative">
@@ -17,15 +66,7 @@ const CustomInput = (props) => {
       >
         {props?.label || ""}
       </Text>
-      <Input
-        backgroundColor="gray.50"
-        fontSize="sm"
-        borderRadius="3px"
-        pb="11px"
-        pt="34px"
-        {...register?.(name)}
-        {...rest}
-      />
+      {getField()}
     </Box>
   );
 };

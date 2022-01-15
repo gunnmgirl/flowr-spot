@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -14,7 +15,13 @@ import flowerBg from "../../../icons/flower-bg.svg";
 import noImage from "../../../icons/no-image.png";
 
 const FlowerDetailHeader = (props) => {
-  const { profilePicture, name, sightings, latinName, isLoading } = props;
+  const { profilePicture, name, sightings, latinName, isLoading, id } = props;
+  const navigate = useNavigate();
+
+  const gotoAddSighting = () => {
+    navigate(`/sightings/${id}/new`);
+  };
+
   return (
     <Skeleton isLoaded={!isLoading}>
       <Box backgroundSize="cover" bgImage={flowerBg} height="350px">
@@ -48,7 +55,9 @@ const FlowerDetailHeader = (props) => {
             <Text fontSize="sm">{latinName}</Text>
           </GridItem>
           <GridItem py="20px">
-            <Button colorScheme="purple">+ Add New Sighting</Button>
+            <Button onClick={gotoAddSighting} colorScheme="purple">
+              + Add New Sighting
+            </Button>
           </GridItem>
         </Grid>
         <Text></Text>
