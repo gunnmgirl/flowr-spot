@@ -22,8 +22,6 @@ const Sightings = () => {
     },
   });
 
-  const gotoAddNewSighting = () => {};
-
   if (isLoading) {
     return (
       <Grid
@@ -45,16 +43,13 @@ const Sightings = () => {
 
   return (
     <Flex pb="30px" direction="column">
-      <Flex wrap="wrap" align="center" justify="space-evenly">
+      <Flex align="center" justify="space-evenly">
         <Box textAlign="center">
           <Heading opacity="0.8">Sighting List</Heading>
           <Text my="8px" opacity="0.6">
             Explore between more than 8.427 sightings
           </Text>
         </Box>
-        <Button colorScheme="purple" onClick={gotoAddNewSighting}>
-          + Add New Sighting
-        </Button>
       </Flex>
       <Grid
         mt="100px"

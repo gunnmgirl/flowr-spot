@@ -27,9 +27,24 @@ const Navigation = () => {
     <Flex px="28px" py="20px" justify="space-between">
       <Logo />
       <HStack fontSize="sm" spacing="54px">
-        <NavLink to="/">Flowers</NavLink>
-        <NavLink to="/sightings">Latest Sightings</NavLink>
-        <NavLink to="/favorites">Favorites</NavLink>
+        <NavLink
+          to="/"
+          style={({ isActive }) => (isActive ? { color: "purple" } : undefined)}
+        >
+          Flowers
+        </NavLink>
+        <NavLink
+          to="/sightings"
+          style={({ isActive }) => (isActive ? { color: "purple" } : undefined)}
+        >
+          Latest Sightings
+        </NavLink>
+        <NavLink
+          to="/favorites"
+          style={({ isActive }) => (isActive ? { color: "purple" } : undefined)}
+        >
+          Favorites
+        </NavLink>
         {isAuth ? (
           <UserAvatar />
         ) : (

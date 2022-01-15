@@ -20,6 +20,7 @@ import { ReactComponent as Likes } from "../../../icons/heart.svg";
 
 const SightingDetail = (props) => {
   const location = useLocation();
+  const { isOpen, onToggle } = useDisclosure();
   const {
     commentsCount,
     description,
@@ -31,9 +32,6 @@ const SightingDetail = (props) => {
     latitude,
     id,
   } = location.state;
-
-  const { isOpen, onToggle } = useDisclosure();
-
   return (
     <>
       <Collapse animateOpacity in={isOpen}>

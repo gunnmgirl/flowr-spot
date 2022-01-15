@@ -15,7 +15,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const token = useStore.getState().token;
-    config.headers.authorization = token;
+    config.headers.Authorization = token;
     return config;
   },
   (error) => {

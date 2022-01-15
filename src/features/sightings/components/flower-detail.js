@@ -44,6 +44,7 @@ const FlowerDetail = () => {
         profilePicture={
           data?.pages?.[0]?.sightings?.[0]?.flower?.profile_picture
         }
+        id={id}
         latinName={data?.pages?.[0]?.sightings?.[0]?.flower?.latin_name}
         name={data?.pages?.[0]?.sightings?.[0]?.flower?.name}
       />
