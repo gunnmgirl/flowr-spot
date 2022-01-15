@@ -93,6 +93,7 @@ const Login = (props) => {
         closeOnOverlayClick={!isLoading}
         isOpen={isOpen}
         onClose={handleClose}
+        data-cy="login-modal"
       >
         <ModalOverlay />
         <ModalContent borderRadius="3px">
@@ -105,6 +106,7 @@ const Login = (props) => {
                 placeholder="johndoe@gmail.com"
                 name="email"
                 register={register}
+                data-cy="login-email-input"
               />
               <Text color="red.400" mt="3px" fontSize="xs">
                 {errors?.email?.message}
@@ -115,6 +117,7 @@ const Login = (props) => {
                 type="password"
                 name="password"
                 register={register}
+                data-cy="login-password-input"
               />
               <Text color="red.400" mt="3px" fontSize="xs">
                 {errors?.password?.message}
@@ -127,6 +130,7 @@ const Login = (props) => {
                   colorScheme="purple"
                   onClick={handleSubmit(onSubmit)}
                   size="lg"
+                  data-cy="login-submit-button"
                 >
                   Login to your Account
                 </Button>
@@ -137,6 +141,7 @@ const Login = (props) => {
       </Modal>
       {isLoginSuccessOpen && (
         <LoginSuccess
+          data-cy="login-success-modal"
           isOpen={isLoginSuccessOpen}
           onClose={onLoginSuccessClose}
         />
