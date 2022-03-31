@@ -35,7 +35,7 @@ const Landing = () => {
       templateRows="repeat(auto-fill, 350px)"
       justifyContent="center"
     >
-      {data?.flowers?.map((flower) => (
+      {data.flowers.map((flower) => (
         <FlowerItem key={flower?.id} flower={flower} />
       ))}
     </Grid>
