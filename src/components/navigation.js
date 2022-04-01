@@ -35,7 +35,7 @@ const Navigation = () => {
         fontSize="sm"
         spacing="54px"
       >
-        {width < 500 ? (
+        {width < 550 ? (
           <NavigationMobile />
         ) : (
           <>
